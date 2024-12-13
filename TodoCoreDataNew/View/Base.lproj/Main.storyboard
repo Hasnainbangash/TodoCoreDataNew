@@ -93,8 +93,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="ZeG-cA-TQq">
-                                <rect key="frame" x="16" y="111" width="370" height="665"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZeG-cA-TQq">
+                                <rect key="frame" x="16" y="111" width="370" height="503"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0j8-5C-lJf">
                                         <rect key="frame" x="0.0" y="0.0" width="370" height="43"/>
@@ -116,7 +116,7 @@
                                         </constraints>
                                     </view>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Ky-bY-cWH">
-                                        <rect key="frame" x="0.0" y="80" width="370" height="34"/>
+                                        <rect key="frame" x="0.0" y="53" width="370" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="2rU-tW-6FZ"/>
                                             <constraint firstAttribute="width" constant="370" id="cj3-AF-c05"/>
@@ -125,7 +125,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QwL-Iv-BvK">
-                                        <rect key="frame" x="0.0" y="151" width="370" height="128"/>
+                                        <rect key="frame" x="0.0" y="97" width="370" height="128"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="128" id="5Pf-3C-Ped"/>
@@ -137,7 +137,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SND-OX-Eez">
-                                        <rect key="frame" x="0.0" y="316" width="370" height="34"/>
+                                        <rect key="frame" x="0.0" y="235" width="370" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="K2n-7p-tfq"/>
                                             <constraint firstAttribute="width" constant="370" id="p1o-bG-DXJ"/>
@@ -146,7 +146,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVb-hh-h13">
-                                        <rect key="frame" x="0.0" y="387" width="370" height="96"/>
+                                        <rect key="frame" x="0.0" y="279" width="370" height="96"/>
                                         <subviews>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Fo5-39-IUp">
                                                 <rect key="frame" x="0.0" y="15" width="370" height="66"/>
@@ -168,7 +168,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="56" translatesAutoresizingMaskIntoConstraints="NO" id="A3I-XG-D3D">
-                                        <rect key="frame" x="0.0" y="520" width="370" height="65"/>
+                                        <rect key="frame" x="0.0" y="385" width="370" height="65"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="XuI-zi-r80">
                                                 <rect key="frame" x="0.0" y="0.0" width="86" height="65"/>
@@ -269,13 +269,16 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HdU-O0-lNA">
-                                        <rect key="frame" x="0.0" y="622" width="370" height="43"/>
+                                        <rect key="frame" x="0.0" y="460" width="370" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="Byp-lb-hkv"/>
                                             <constraint firstAttribute="width" constant="370" id="lVJ-nu-S6W"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Add"/>
+                                        <connections>
+                                            <action selector="addButtonPressed:" destination="rHB-lv-PEr" eventType="touchUpInside" id="QXD-aW-n3X"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -285,6 +288,7 @@
                         <constraints>
                             <constraint firstItem="dOt-Xu-ZIG" firstAttribute="trailing" secondItem="ZeG-cA-TQq" secondAttribute="trailing" constant="16" id="4D6-Ol-pRl"/>
                             <constraint firstItem="ZeG-cA-TQq" firstAttribute="leading" secondItem="dOt-Xu-ZIG" secondAttribute="leading" constant="16" id="Cde-CP-LrF"/>
+                            <constraint firstItem="dOt-Xu-ZIG" firstAttribute="bottom" secondItem="ZeG-cA-TQq" secondAttribute="bottom" constant="226" id="P6N-tk-VPZ"/>
                             <constraint firstItem="ZeG-cA-TQq" firstAttribute="top" secondItem="dOt-Xu-ZIG" secondAttribute="top" constant="5" id="q9N-o2-Rec"/>
                         </constraints>
                     </view>
@@ -293,6 +297,12 @@
                         <outlet property="datePicker" destination="Fo5-39-IUp" id="3Mq-x1-N3a"/>
                         <outlet property="dateTextField" destination="SND-OX-Eez" id="bWI-jt-bJ7"/>
                         <outlet property="descriptionTextField" destination="QwL-Iv-BvK" id="X6K-LA-DNr"/>
+                        <outlet property="highButtonCheckmark" destination="c9Y-wX-f5a" id="yj7-IL-rYl"/>
+                        <outlet property="highButtonLabel" destination="gKm-65-frM" id="etS-cN-yIT"/>
+                        <outlet property="lowButtonCheckmark" destination="T71-RH-aOd" id="SS2-fz-Lid"/>
+                        <outlet property="lowButtonLabel" destination="XUc-Bh-cBf" id="4Pq-YK-6Gb"/>
+                        <outlet property="mediumButtonCheckmark" destination="HGX-i8-6IS" id="l9V-fC-lYZ"/>
+                        <outlet property="mediumButtonLabel" destination="msi-1J-ceW" id="uNV-W9-quh"/>
                         <outlet property="titleTextField" destination="2Ky-bY-cWH" id="pWD-uN-LKi"/>
                     </connections>
                 </viewController>
