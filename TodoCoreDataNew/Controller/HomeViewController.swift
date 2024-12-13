@@ -58,8 +58,7 @@ extension HomeViewController: UITableViewDataSource {
         let toDo = item![indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskCellIdentifier, for: indexPath) as? TaskCell
-        cell?.taskTitle.text = toDo.taskTitle
-        cell?.taskTitleDescription.text = toDo.taskText
+        cell?.configureCell(with: toDo)
         return cell ?? UITableViewCell()
         
     }
@@ -70,8 +69,6 @@ extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
-        
-//        cell?.timeLabel.text = toDo?.date?.description
         return cell ?? UITableViewCell()
         
     }
