@@ -44,6 +44,7 @@
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="u3a-mf-sf0">
                                 <rect key="frame" x="252" y="15" width="21" height="21"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22.329999999999998" id="281-xh-tzu"/>
                                     <constraint firstAttribute="width" constant="21" id="B1J-SY-cvP"/>
@@ -60,6 +61,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="taskView" destination="EaH-gT-h1U" id="dI8-sC-onP"/>
+                <outlet property="timeLabel" destination="Mg9-9G-hVn" id="yeR-hy-KMZ"/>
+            </connections>
             <point key="canvasLocation" x="157.25190839694656" y="44.718309859154935"/>
         </tableViewCell>
     </objects>
