@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-var item: [ToDo]?
+var item: [TaskToDo]?
 
 class HomeViewController: UIViewController {
 
@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
         
         // Fetch the data from Core Data to display in the tableview
         do {
-            let request = ToDo.fetchRequest() as NSFetchRequest<ToDo>
+            let request = TaskToDo.fetchRequest() as NSFetchRequest<TaskToDo>
             item = try context.fetch(request)
             
             DispatchQueue.main.async {
@@ -59,7 +59,7 @@ extension HomeViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskCellIdentifier, for: indexPath) as? TaskCell
         cell?.taskTitle.text = toDo.taskTitle
-        cell?.taskTitleDescription.text = toDo.taskDescription
+        cell?.taskTitleDescription.text = toDo.taskText
         return cell ?? UITableViewCell()
         
     }

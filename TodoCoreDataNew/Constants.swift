@@ -17,4 +17,8 @@ struct K {
         static let taskCellNibName = "TaskCell"
         static let taskHeadingCellNibName = "TaskHeadingCell"
     }
+    
+    struct Segues {
+        static let homeToAddNew = "HomeTaskScreenToAddTaskScreen"
+    }
 }

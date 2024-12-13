@@ -57,8 +57,7 @@ class AddTaskViewController: UIViewController {
         lowButtonCheckmark.image = nil
         mediumButtonCheckmark.image = nil
         highButtonCheckmark.image = nil
-        
-        // Show the checkmark for the selected button
+    
         switch sender {
         case lowButtonLabel:
             lowButtonCheckmark.image = UIImage(systemName: "checkmark")
@@ -81,14 +80,12 @@ class AddTaskViewController: UIViewController {
             return
         }
         
-        let newToDo = ToDo(context: self.context)
+        let newToDo = TaskToDo(context: self.context)
         newToDo.taskTitle = titleTextField.text
-        newToDo.taskDescription = descriptionTextField.text
-        newToDo.priority = priority
+        newToDo.taskText = descriptionTextField.text
+        newToDo.taskPriority = priority
         newToDo.date = datePicker.date
-        
+        newToDo.isCompleted = false
         PersistentStorage.shared.saveContext()
-        
     }
-    
 }
