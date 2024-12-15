@@ -101,7 +101,7 @@ class AddTaskViewController: UIViewController {
         }
     }
     
-    @IBAction func addButtonPressed(_ sender: UIButton) {
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
         if let task = selectedTask {
             // Editing an existing task
             task.taskTitle = titleTextField.text
