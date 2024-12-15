@@ -28,10 +28,10 @@ class HomeViewController: UIViewController {
         
         tableView.register(UINib(nibName: K.NibNames.taskHeadingCellNibName, bundle: nil), forCellReuseIdentifier: K.Identifiers.taskHeadingCellIdentifier)
         
-        fetchPeople()
+        fetchTasks()
     }
     
-    func fetchPeople() {
+    func fetchTasks() {
         
         // Fetch the data from Core Data to display in the tableview
         do {
@@ -78,6 +78,41 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let action = UIContextualAction(style: .destructive, title: "Delete") {action, view, completionHandler in
+            
+            let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete?", preferredStyle: .alert)
+            
+            let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                
+                // TODO: Which task to remove
+                let taskToDelete = item?[indexPath.row]
+                
+                // TODO: Delete the task
+                self.context.delete(taskToDelete!)
+                
+                // TODO: Save the data
+                PersistentStorage.shared.saveContext()
+                
+                // TODO: Re-fetch the data
+                self.fetchTasks()
+            }
+            
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+                print("Cancel Button is pressed")
+            }
+            
+            alert.addAction(deleteButton)
+            alert.addAction(cancelButton)
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        
+        return UISwipeActionsConfiguration(actions: [action])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
