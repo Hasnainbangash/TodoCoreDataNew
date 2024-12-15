@@ -14,6 +14,9 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var groupedTasks: [String: [TaskToDo]] = [:]  // Grouped tasks by date
+    var sectionTitles: [String] = []  // To store unique dates for sections
+    
     // Reference to Imanaged object context
     let context = PersistentStorage.shared.context
     
@@ -32,32 +35,64 @@ class HomeViewController: UIViewController {
     }
     
     func fetchTasks() {
-        
         // Fetch the data from Core Data to display in the tableview
         do {
             let request = TaskToDo.fetchRequest() as NSFetchRequest<TaskToDo>
             item = try context.fetch(request)
             
+            // Group tasks by date
+            groupTasksByDate()
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         } catch {
-            
+            // Handle errors
         }
+    }
+    
+    func groupTasksByDate() {
+        groupedTasks = [:]
+        sectionTitles = []
+        
+        for task in item ?? [] {
+            guard let taskDate = task.date else { continue }
+            let dateString = formatDate(date: taskDate)
+            
+            if groupedTasks[dateString] == nil {
+                groupedTasks[dateString] = []
+                sectionTitles.append(dateString)
+            }
+            
+            groupedTasks[dateString]?.append(task)
+        }
+    }
+    
+    func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
     }
 }
 
 extension HomeViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionTitles.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return item?.count ?? 0
+        let dateKey = sectionTitles[section]
+        return groupedTasks[dateKey]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let toDo = item![indexPath.row]
+        let dateKey = sectionTitles[indexPath.section]
+        let task = groupedTasks[dateKey]?[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskCellIdentifier, for: indexPath) as? TaskCell
-        cell?.configureCell(with: toDo)
+        cell?.configureCell(with: task!)
         return cell ?? UITableViewCell()
         
     }
@@ -67,8 +102,10 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
-        return cell ?? UITableViewCell()
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
+        let dateString = sectionTitles[section]
+        headerCell?.timeLabel.text = dateString
+        return headerCell
         
     }
     
