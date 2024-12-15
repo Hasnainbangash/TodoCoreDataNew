@@ -17,13 +17,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="ZAh-0h-DkB">
-                        <rect key="frame" x="16" y="13" width="273" height="51"/>
+                        <rect key="frame" x="11.666666666666657" y="16.666666666666671" width="273" height="40"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-34-Lou">
-                                <rect key="frame" x="0.0" y="0.0" width="238" height="51"/>
+                                <rect key="frame" x="0.0" y="0.0" width="238" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaH-gT-h1U">
-                                        <rect key="frame" x="0.0" y="5.6666666666666679" width="5" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="5" height="40"/>
                                         <color key="backgroundColor" red="0.66274509803921566" green="0.66274509803921566" blue="0.66274509803921566" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="R8n-Ef-LB1"/>
@@ -31,7 +31,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mg9-9G-hVn">
-                                        <rect key="frame" x="13" y="0.0" width="225" height="51"/>
+                                        <rect key="frame" x="13" y="5.6666666666666661" width="225" height="28.666666666666671"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="51" id="x5b-Yb-1K1"/>
                                             <constraint firstAttribute="width" constant="225" id="zSU-ep-09a"/>
@@ -43,7 +43,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowtriangle.down.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="u3a-mf-sf0">
-                                <rect key="frame" x="252" y="15" width="21" height="21"/>
+                                <rect key="frame" x="252" y="9.3333333333333286" width="21" height="21.000000000000014"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22.329999999999998" id="281-xh-tzu"/>
@@ -54,10 +54,10 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ZAh-0h-DkB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="B6a-0P-Zgk"/>
-                    <constraint firstAttribute="bottom" secondItem="ZAh-0h-DkB" secondAttribute="bottom" constant="13" id="Hd4-gM-bgg"/>
-                    <constraint firstItem="ZAh-0h-DkB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="a0K-Rz-D8g"/>
-                    <constraint firstAttribute="trailing" secondItem="ZAh-0h-DkB" secondAttribute="trailing" constant="17" id="mLt-99-XBt"/>
+                    <constraint firstItem="ZAh-0h-DkB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11.5" id="Aov-iy-Gw4"/>
+                    <constraint firstItem="ZAh-0h-DkB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16.5" id="e9g-tS-LRz"/>
+                    <constraint firstAttribute="bottom" secondItem="ZAh-0h-DkB" secondAttribute="bottom" constant="16.5" id="eMV-Ep-hHj"/>
+                    <constraint firstAttribute="trailing" secondItem="ZAh-0h-DkB" secondAttribute="trailing" constant="11.5" id="vc8-1t-y7y"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
