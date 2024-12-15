@@ -19,6 +19,6 @@ struct K {
     }
     
     struct Segues {
-        static let homeToAddNew = "HomeTaskScreenToAddTaskScreen"
+        static let homeToEditTask = "HomeTaskScreenToEditTaskScreen"
     }
 }

@@ -11,7 +11,7 @@ import CoreData
 var item: [TaskToDo]?
 
 class HomeViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     // Reference to Imanaged object context
@@ -45,7 +45,7 @@ class HomeViewController: UIViewController {
             
         }
     }
-
+    
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -81,4 +81,20 @@ extension HomeViewController: UITableViewDelegate {
         return 50
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Perform the segue
+        performSegue(withIdentifier: K.Segues.homeToEditTask, sender: self)
+        
+        // Deselect the row after selection for better UX
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Segues.homeToEditTask {
+            if let destinationVC = segue.destination as? AddTaskViewController,
+               let indexPath = tableView.indexPathForSelectedRow {
+                destinationVC.selectedTask = item?[indexPath.row]
+            }
+        }
+    }
 }
