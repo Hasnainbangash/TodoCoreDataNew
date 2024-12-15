@@ -28,6 +28,7 @@ class AddTaskViewController: UIViewController {
     // Store selected priority
     var selectedPriority: String?
     
+    var selectedTask: TaskToDo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,34 @@ class AddTaskViewController: UIViewController {
         mediumButtonCheckmark.image = nil
         highButtonCheckmark.image = nil
         
+        // If we are editing an existing task, pre-fill the data
+        if let task = selectedTask {
+            updateCurrentFields(with: task)
+        }
+        
         updateDateTextField(date: datePicker.date)
+    }
+    
+    func updateCurrentFields(with task: TaskToDo) {
+        titleTextField.text = task.taskTitle
+        descriptionTextField.text = task.taskText
+        dateTextField.text = task.date?.formatted(.dateTime)
+        datePicker.date = task.date ?? Date()
+        
+        // Set the priority button checkmarks
+        switch task.taskPriority {
+        case "Low":
+            lowButtonCheckmark.image = UIImage(systemName: "checkmark")
+            selectedPriority = "Low"
+        case "Medium":
+            mediumButtonCheckmark.image = UIImage(systemName: "checkmark")
+            selectedPriority = "Medium"
+        case "High":
+            highButtonCheckmark.image = UIImage(systemName: "checkmark")
+            selectedPriority = "High"
+        default:
+            break
+        }
     }
     
     func updateDateTextField(date: Date) {
@@ -57,7 +85,7 @@ class AddTaskViewController: UIViewController {
         lowButtonCheckmark.image = nil
         mediumButtonCheckmark.image = nil
         highButtonCheckmark.image = nil
-    
+        
         switch sender {
         case lowButtonLabel:
             lowButtonCheckmark.image = UIImage(systemName: "checkmark")
@@ -74,18 +102,23 @@ class AddTaskViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        
-        guard let priority = selectedPriority else {
-            print("Priority not selected")
-            return
+        if let task = selectedTask {
+            // Editing an existing task
+            task.taskTitle = titleTextField.text
+            task.taskText = descriptionTextField.text
+            task.taskPriority = selectedPriority ?? "Low"
+            task.date = datePicker.date
+            task.isCompleted = false
+            PersistentStorage.shared.saveContext()
+        } else {
+            // Adding a new task
+            let newTask = TaskToDo(context: context)
+            newTask.taskTitle = titleTextField.text
+            newTask.taskText = descriptionTextField.text
+            newTask.taskPriority = selectedPriority ?? "Low"
+            newTask.date = datePicker.date
+            newTask.isCompleted = false
+            PersistentStorage.shared.saveContext()
         }
-        
-        let newToDo = TaskToDo(context: self.context)
-        newToDo.taskTitle = titleTextField.text
-        newToDo.taskText = descriptionTextField.text
-        newToDo.taskPriority = priority
-        newToDo.date = datePicker.date
-        newToDo.isCompleted = false
-        PersistentStorage.shared.saveContext()
     }
 }

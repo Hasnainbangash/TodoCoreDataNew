@@ -45,7 +45,6 @@ class HomeViewController: UIViewController {
             
         }
     }
-    
 }
 
 extension HomeViewController: UITableViewDataSource {
@@ -82,8 +81,11 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Perform the segue
-        performSegue(withIdentifier: K.Segues.homeToEditTask, sender: self)
+        // Get the selected task
+        let selectedTask = item?[indexPath.row]
+        
+        // Perform the segue and pass the task data
+        performSegue(withIdentifier: K.Segues.homeToEditTask, sender: selectedTask)
         
         // Deselect the row after selection for better UX
         tableView.deselectRow(at: indexPath, animated: true)
@@ -91,9 +93,9 @@ extension HomeViewController: UITableViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segues.homeToEditTask {
-            if let destinationVC = segue.destination as? AddTaskViewController,
-               let indexPath = tableView.indexPathForSelectedRow {
-                destinationVC.selectedTask = item?[indexPath.row]
+            if let destinationVC = segue.destination as? AddTaskViewController {
+                // Pass the selected task to the AddTaskViewController
+                destinationVC.selectedTask = sender as? TaskToDo
             }
         }
     }
