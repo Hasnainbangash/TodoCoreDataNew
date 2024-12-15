@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
     
     var groupedTasks: [String: [TaskToDo]] = [:]  // Grouped tasks by date
     var sectionTitles: [String] = []  // To store unique dates for sections
+    var expandedSections: Set<Int> = []
     
     // Reference to Imanaged object context
     let context = PersistentStorage.shared.context
@@ -83,7 +84,7 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let dateKey = sectionTitles[section]
-        return groupedTasks[dateKey]?.count ?? 0
+        return expandedSections.contains(section) ? groupedTasks[dateKey]?.count ?? 0 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -105,8 +106,26 @@ extension HomeViewController: UITableViewDelegate {
         let headerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
         let dateString = sectionTitles[section]
         headerCell?.timeLabel.text = dateString
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleHeaderTap(_:)))
+        headerCell?.contentView.addGestureRecognizer(tapGestureRecognizer)
+        headerCell?.contentView.tag = section
+        
         return headerCell
         
+    }
+    
+    @objc func handleHeaderTap(_ sender: UITapGestureRecognizer) {
+        guard let section = sender.view?.tag else { return }
+
+        if expandedSections.contains(section) {
+            expandedSections.remove(section)
+        } else {
+            expandedSections.insert(section)
+        }
+
+        tableView.reloadSections(IndexSet(integer: section), with: .automatic)
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
