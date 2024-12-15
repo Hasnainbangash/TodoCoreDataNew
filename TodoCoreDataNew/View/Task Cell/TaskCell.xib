@@ -58,6 +58,9 @@
                                     <constraint firstAttribute="height" constant="31" id="IHg-tZ-ZSQ"/>
                                     <constraint firstAttribute="width" constant="47" id="bm5-mp-FxP"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="taskToggleButtonPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="bkX-vg-P9T"/>
+                                </connections>
                             </switch>
                         </subviews>
                     </stackView>

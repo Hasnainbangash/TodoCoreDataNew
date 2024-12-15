@@ -26,10 +26,25 @@ class TaskCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    @IBAction func taskToggleButtonPressed(_ sender: UISwitch) {
+        if sender.isOn {
+            // Add a strike-through
+            let attributedString = NSMutableAttributedString(string: taskTitle.text ?? "")
+            attributedString.addAttribute(.strikethroughStyle,
+                                          value: NSUnderlineStyle.single.rawValue,
+                                          range: NSRange(location: 0, length: attributedString.length))
+            taskTitle.attributedText = attributedString
+        } else {
+            // Remove the strike-through
+            taskTitle.attributedText = NSAttributedString(string: taskTitle.text ?? "")
+        }
+    }
+    
     func configureCell(with task: TaskToDo) {
         taskTitle.text = task.taskTitle
         taskTitleDescription.text = task.taskText
-    
+        
         switch task.taskPriority {
         case "Low":
             taskPriorityView.backgroundColor = UIColor.yellow
