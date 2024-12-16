@@ -148,7 +148,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVb-hh-h13">
                                         <rect key="frame" x="0.0" y="279" width="370" height="96"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Fo5-39-IUp">
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="Fo5-39-IUp">
                                                 <rect key="frame" x="0.0" y="15" width="370" height="66"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="66" id="BMv-9D-BFr"/>
