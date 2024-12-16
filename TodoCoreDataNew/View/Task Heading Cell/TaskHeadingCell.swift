@@ -23,4 +23,8 @@ class TaskHeadingCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configureData(date: String) {
+        timeLabel.text = "\(date) Tasks"
+    }
+    
 }

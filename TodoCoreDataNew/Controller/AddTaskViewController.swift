@@ -79,6 +79,7 @@ class AddTaskViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "dd/MM"
         dateTextField.text = dateFormatter.string(from: date)
     }
     

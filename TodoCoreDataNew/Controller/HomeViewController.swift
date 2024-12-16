@@ -81,6 +81,7 @@ class HomeViewController: UIViewController, AddTaskDelegate {
     func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "dd/MM"
         return dateFormatter.string(from: date)
     }
 }
@@ -114,7 +115,8 @@ extension HomeViewController: UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
         let dateString = sectionTitles[section]
-        cell?.timeLabel.text = dateString
+//        cell?.timeLabel.text = dateString
+        cell?.configureData(date: dateString)
         
         // Here making the header cell interactable
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleHeaderTap(_:)))
