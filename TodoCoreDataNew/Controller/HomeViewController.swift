@@ -200,26 +200,27 @@ extension HomeViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Get the selected task
-        let selectedTask = item?[indexPath.row]
-        
+        // Get the selected task from the groupedTasks dictionary
+        let dateKey = sectionTitles[indexPath.section]
+        guard let selectedTask = groupedTasks[dateKey]?[indexPath.row] else { return }
+
         // Perform the segue and pass the task data
         performSegue(withIdentifier: K.Segues.homeToEditTask, sender: selectedTask)
         
         // Deselect the row after selection for better UX
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segues.homeToEditTask {
             if let destinationVC = segue.destination as? AddTaskViewController {
                 // Pass the selected task to the AddTaskViewController
-                destinationVC.delegate = self
                 destinationVC.selectedTask = sender as? TaskToDo
+                destinationVC.delegate = self  // Set the delegate to handle task saving
             }
         } else if segue.identifier == K.Segues.homeAddButtonToEditTask {
             if let destinationVC = segue.destination as? AddTaskViewController {
-                // Pass the selected task to the AddTaskViewController
+                // Set delegate for adding tasks
                 destinationVC.delegate = self
             }
         }
