@@ -14,8 +14,10 @@ class HomeViewController: UIViewController, AddTaskDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var groupedTasks: [String: [TaskToDo]] = [:]  // Grouped tasks by date
-    var sectionTitles: [String] = []  // To store unique dates for sections
+    // An dictionary that contains the group of tasks by the date
+    var groupedTasks: [String: [TaskToDo]] = [:]
+    // Storing the data of all dates for the section
+    var sectionTitles: [String] = []
     var expandedSections: Set<Int> = []
     
     // Reference to Imanaged object context
@@ -27,8 +29,6 @@ class HomeViewController: UIViewController, AddTaskDelegate {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        
         
         tableView.register(UINib(nibName: K.NibNames.taskCellNibName, bundle: nil), forCellReuseIdentifier: K.Identifiers.taskCellIdentifier)
         
@@ -43,17 +43,17 @@ class HomeViewController: UIViewController, AddTaskDelegate {
             let request = TaskToDo.fetchRequest() as NSFetchRequest<TaskToDo>
             item = try context.fetch(request)
             
-            // Group tasks by date
             groupTasksByDate()
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-        } catch {
-            // Handle errors
+        } catch let error {
+            print(error.localizedDescription)
         }
     }
     
+    // Delegate Method
     func didSaveTask() {
         fetchTasks()
         DispatchQueue.main.async {
