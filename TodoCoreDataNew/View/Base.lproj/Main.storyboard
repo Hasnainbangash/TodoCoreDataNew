@@ -122,7 +122,7 @@
                                             <constraint firstAttribute="width" constant="370" id="cj3-AF-c05"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QwL-Iv-BvK">
                                         <rect key="frame" x="0.0" y="97" width="370" height="128"/>
