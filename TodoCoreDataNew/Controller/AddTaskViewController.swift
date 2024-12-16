@@ -120,5 +120,6 @@ class AddTaskViewController: UIViewController {
             newTask.isCompleted = false
             PersistentStorage.shared.saveContext()
         }
+        navigationController?.popToRootViewController(animated: true)
     }
 }
