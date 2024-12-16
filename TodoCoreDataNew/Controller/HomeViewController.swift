@@ -214,6 +214,7 @@ extension HomeViewController: UITableViewDelegate {
         if segue.identifier == K.Segues.homeToEditTask {
             if let destinationVC = segue.destination as? AddTaskViewController {
                 // Pass the selected task to the AddTaskViewController
+                destinationVC.delegate = self
                 destinationVC.selectedTask = sender as? TaskToDo
             }
         } else if segue.identifier == K.Segues.homeAddButtonToEditTask {
