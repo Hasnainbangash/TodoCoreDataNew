@@ -20,5 +20,6 @@ struct K {
     
     struct Segues {
         static let homeToEditTask = "HomeTaskScreenToEditTaskScreen"
+        static let homeAddButtonToEditTask = "AddButtonToAddScreen"
     }
 }
