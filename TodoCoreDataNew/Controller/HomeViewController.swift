@@ -10,7 +10,7 @@ import CoreData
 
 var item: [TaskToDo]?
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, AddTaskDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,6 +27,8 @@ class HomeViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        
         
         tableView.register(UINib(nibName: K.NibNames.taskCellNibName, bundle: nil), forCellReuseIdentifier: K.Identifiers.taskCellIdentifier)
         
@@ -50,6 +52,12 @@ class HomeViewController: UIViewController {
         } catch {
             // Handle errors
         }
+    }
+    
+    func didSaveTask() {
+        // Reload the data after a task is saved or edited
+        fetchTasks()
+        tableView.reloadData()
     }
     
     func groupTasksByDate() {
@@ -117,13 +125,13 @@ extension HomeViewController: UITableViewDelegate {
     
     @objc func handleHeaderTap(_ sender: UITapGestureRecognizer) {
         guard let section = sender.view?.tag else { return }
-
+        
         if expandedSections.contains(section) {
             expandedSections.remove(section)
         } else {
             expandedSections.insert(section)
         }
-
+        
         tableView.reloadSections(IndexSet(integer: section), with: .automatic)
         tableView.reloadData()
     }
@@ -187,6 +195,11 @@ extension HomeViewController: UITableViewDelegate {
             if let destinationVC = segue.destination as? AddTaskViewController {
                 // Pass the selected task to the AddTaskViewController
                 destinationVC.selectedTask = sender as? TaskToDo
+            }
+        } else if segue.identifier == "AddButtonToAddScreen" {
+            if let destinationVC = segue.destination as? AddTaskViewController {
+                // Pass the selected task to the AddTaskViewController
+                destinationVC.delegate = self
             }
         }
     }

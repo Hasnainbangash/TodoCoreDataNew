@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol AddTaskDelegate: AnyObject {
+    func didSaveTask()
+}
+
 class AddTaskViewController: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -29,6 +33,8 @@ class AddTaskViewController: UIViewController {
     var selectedPriority: String?
     
     var selectedTask: TaskToDo?
+    
+    var delegate: AddTaskDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +126,9 @@ class AddTaskViewController: UIViewController {
             newTask.isCompleted = false
             PersistentStorage.shared.saveContext()
         }
+        
+        delegate?.didSaveTask()
+        
         navigationController?.popToRootViewController(animated: true)
     }
 }

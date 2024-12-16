@@ -46,7 +46,7 @@
                                                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
                                                         <connections>
-                                                            <segue destination="rHB-lv-PEr" kind="show" id="6rq-VH-O2a"/>
+                                                            <segue destination="rHB-lv-PEr" kind="show" identifier="AddButtonToAddScreen" id="6rq-VH-O2a"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -330,7 +330,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CRy-Kj-CPt"/>
+        <segue reference="6rq-VH-O2a"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark" catalog="system" width="128" height="114"/>
