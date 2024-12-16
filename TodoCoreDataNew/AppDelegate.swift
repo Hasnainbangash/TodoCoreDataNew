@@ -7,14 +7,20 @@
 
 import UIKit
 import CoreData
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Enabling the IQKeyboard
+        IQKeyboardManager.shared.isEnabled = true
+        
+        // When the user click outside the keyword get gone
+        IQKeyboardManager.shared.resignOnTouchOutside = true
+        
         return true
     }
 
