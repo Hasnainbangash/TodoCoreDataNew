@@ -55,9 +55,10 @@ class HomeViewController: UIViewController, AddTaskDelegate {
     }
     
     func didSaveTask() {
-        // Reload the data after a task is saved or edited
         fetchTasks()
-        tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func groupTasksByDate() {
@@ -146,23 +147,40 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let action = UIContextualAction(style: .destructive, title: "Delete") {action, view, completionHandler in
+        let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
             
             let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete?", preferredStyle: .alert)
             
             let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                // Get the task to delete from the `groupedTasks` dictionary
+                let dateKey = self.sectionTitles[indexPath.section]
+                guard let taskToDelete = self.groupedTasks[dateKey]?[indexPath.row] else { return }
                 
-                // TODO: Which task to remove
-                let taskToDelete = item?[indexPath.row]
-                
-                // TODO: Delete the task
-                self.context.delete(taskToDelete!)
-                
-                // TODO: Save the data
+                // Delete the task from Core Data
+                self.context.delete(taskToDelete)
                 PersistentStorage.shared.saveContext()
                 
-                // TODO: Re-fetch the data
-                self.fetchTasks()
+                // Remove the task from the groupedTasks and item array
+                self.groupedTasks[dateKey]?.remove(at: indexPath.row)
+                
+                // If no tasks remain for this date, remove the section
+                if self.groupedTasks[dateKey]?.isEmpty == true {
+                    self.groupedTasks.removeValue(forKey: dateKey)
+                    self.sectionTitles = self.sectionTitles.filter { $0 != dateKey }
+                }
+                
+                // Reload the table view to reflect the deletion
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                // If there are no tasks left, reload sections
+                if self.groupedTasks.isEmpty {
+                    DispatchQueue.main.async {
+                        tableView.reloadData()
+                    }
+                }
+                DispatchQueue.main.async {
+                    tableView.reloadData()
+                }
             }
             
             let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
@@ -174,10 +192,12 @@ extension HomeViewController: UITableViewDelegate {
             
             self.present(alert, animated: true, completion: nil)
             
+            completionHandler(true)  // Complete the action
         }
         
         return UISwipeActionsConfiguration(actions: [action])
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Get the selected task
