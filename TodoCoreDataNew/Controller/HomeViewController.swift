@@ -153,27 +153,25 @@ extension HomeViewController: UITableViewDelegate {
             let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete?", preferredStyle: .alert)
             
             let deleteButton = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-                // Get the task to delete from the `groupedTasks` dictionary
                 let dateKey = self.sectionTitles[indexPath.section]
                 guard let taskToDelete = self.groupedTasks[dateKey]?[indexPath.row] else { return }
                 
                 // Delete the task from Core Data
                 self.context.delete(taskToDelete)
+                // Saving the data in the core data
                 PersistentStorage.shared.saveContext()
                 
                 // Remove the task from the groupedTasks and item array
                 self.groupedTasks[dateKey]?.remove(at: indexPath.row)
                 
-                // If no tasks remain for this date, remove the section
+                // Here checking if tasks are not available remove the section
                 if self.groupedTasks[dateKey]?.isEmpty == true {
                     self.groupedTasks.removeValue(forKey: dateKey)
                     self.sectionTitles = self.sectionTitles.filter { $0 != dateKey }
                 }
                 
-                // Reload the table view to reflect the deletion
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 
-                // If there are no tasks left, reload sections
                 if self.groupedTasks.isEmpty {
                     DispatchQueue.main.async {
                         tableView.reloadData()
@@ -193,7 +191,7 @@ extension HomeViewController: UITableViewDelegate {
             
             self.present(alert, animated: true, completion: nil)
             
-            completionHandler(true)  // Complete the action
+            completionHandler(true)
         }
         
         return UISwipeActionsConfiguration(actions: [action])
@@ -201,28 +199,29 @@ extension HomeViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Get the selected task from the groupedTasks dictionary
         let dateKey = sectionTitles[indexPath.section]
         guard let selectedTask = groupedTasks[dateKey]?[indexPath.row] else { return }
 
         // Perform the segue and pass the task data
         performSegue(withIdentifier: K.Segues.homeToEditTask, sender: selectedTask)
         
-        // Deselect the row after selection for better UX
+        // Deselect the row after selecting it
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segues.homeToEditTask {
             if let destinationVC = segue.destination as? AddTaskViewController {
-                // Pass the selected task to the AddTaskViewController
+                
                 destinationVC.selectedTask = sender as? TaskToDo
-                destinationVC.delegate = self  // Set the delegate to handle task saving
+                destinationVC.delegate = self
+                
             }
         } else if segue.identifier == K.Segues.homeAddButtonToEditTask {
             if let destinationVC = segue.destination as? AddTaskViewController {
-                // Set delegate for adding tasks
+                
                 destinationVC.delegate = self
+                
             }
         }
     }
