@@ -112,15 +112,16 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerCell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifiers.taskHeadingCellIdentifier) as? TaskHeadingCell
         let dateString = sectionTitles[section]
-        headerCell?.timeLabel.text = dateString
+        cell?.timeLabel.text = dateString
         
+        // Here making the header cell interactable
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleHeaderTap(_:)))
-        headerCell?.contentView.addGestureRecognizer(tapGestureRecognizer)
-        headerCell?.contentView.tag = section
+        cell?.contentView.addGestureRecognizer(tapGestureRecognizer)
+        cell?.contentView.tag = section
         
-        return headerCell
+        return cell
         
     }
     
